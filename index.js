@@ -2,7 +2,7 @@ const taskContainer = document.querySelector(".task__container");
 
 globalStore=[];
 
-  const generateNewCard = (taskData) => `<div class="col-md-6 col-lg-4"  id=${taskData.id} >
+  const generateNewCard = (taskData) => `<div class="col-md-6 col-lg-4"  id=${taskData.id}>     
   <div class="card">
     <div class="card-header d-flex justify-content-end gap-2">
       <button type="button" class="btn btn-outline-success"><i class="fas fa-pencil-alt"></i></button>
@@ -16,9 +16,7 @@ globalStore=[];
      </div>
      <div class="card-footer ">
       <button type="button" class="btn btn-outline-primary float-end">open task</button>
-    </div>
-</div>
-`;
+    </div>`;
 
 
 const  saveChanges = () => {
@@ -29,7 +27,7 @@ const  saveChanges = () => {
       taskType: document.getElementById("tasktype").value,
       taskDescription: document.getElementById("taskdescription").value,
     };
-    
+         
     
 
      taskContainer.insertAdjacentHTML("beforeend", generateNewCard(taskData));
