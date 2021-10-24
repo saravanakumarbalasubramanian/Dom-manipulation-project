@@ -25,7 +25,7 @@ globalStore=[];
         // 1. local storage to get tasky card data 
 
 
-        const getCardData = localStorage.getData("tasky"); 
+        const getCardData = localStorage.getItem("tasky"); 
 
 
         // 2. convert  the string to normal object 
