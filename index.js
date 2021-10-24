@@ -44,7 +44,7 @@ globalStore=[];
      
          // 4. update our globalstore 
 
-          globalStore.push(taskData);
+          globalStore.push(cardObject);
      
 
          })
