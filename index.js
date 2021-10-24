@@ -16,7 +16,62 @@ globalStore=[];
      </div>
      <div class="card-footer ">
       <button type="button" class="btn btn-outline-primary float-end">open task</button>
-    </div>`;
+    </div>
+    `;
+  
+
+    const loadInitialCardData = () => {
+
+        // 1. local storage to get tasky card data 
+
+
+        const getCardData = localStorage.getData("tasky"); 
+
+
+        // 2. convert  the string to normal object 
+
+
+        const {cards} = JSON.parse(getCardData);
+
+
+
+         // 3. loop over those array of task object to create HTML card , inject it to DOM
+
+
+         cards.map ( (cardObject) => {
+
+          taskContainer.insertAdjacentHTML("beforeend", generateNewCard(taskData));
+     
+         // 4. update our globalstore 
+
+          globalStore.push(taskData);
+     
+
+         })
+
+ 
+     // steps are :- 
+
+     // 1. local storage to get tasky card data 
+
+
+     // 2. convert  the string to normal object 
+
+     
+     // 3. loop over those array of task object to create HTML card , inject it to DOM
+
+     
+     // 4. update our globalstore  
+
+
+
+
+    };
+
+
+
+
+
 
 
 const  saveChanges = () => {
