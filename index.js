@@ -38,9 +38,9 @@ globalStore=[];
          // 3. loop over those array of task object to create HTML card , inject it to DOM
 
 
-         cards.map ( (cardObject) => {
+         cards.map((cardObject) => {
 
-          taskContainer.insertAdjacentHTML("beforeend", generateNewCard(taskData));
+          taskContainer.insertAdjacentHTML("beforeend", generateNewCard(cardObject));
      
          // 4. update our globalstore 
 
