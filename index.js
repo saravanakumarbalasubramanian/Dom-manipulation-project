@@ -5,7 +5,7 @@ let globalStore=[];
   const generateNewCard = (taskData) => `<div class="col-md-6 col-lg-4">     
   <div class="card">
     <div class="card-header d-flex justify-content-end gap-2">
-      <button type="button" class="btn btn-outline-success"><i class="fas fa-pencil-alt"></i></button>
+      <button type="button" class="btn btn-outline-success" id=${taskData.id}  onclick="editCard.apply(this,arguments)"><i class="fas fa-pencil-alt"></i></button>
       <button type="button" class="btn btn-outline-danger" id=${taskData.id}  onclick="deleteCard.apply(this,arguments)">
       <i class="far fa-trash-alt"  id=${taskData.id}  onclick="deleteCard.apply(this,arguments)">
       </i></button>
@@ -152,33 +152,34 @@ if(tagName === "BUTTON"){
 
 };
 
-
 // edit the card
 //open the card
 
+const editCard = (event) =>{
+  event = window.event;
+  const targetID = event.target.id;
+  const tagName = event.target.tagName;
 
+  let parentElement;
+  if(tagName === "BUTTON"){
 
+    // the button of the parent element (card header and card so two parent or elses 3 parent )
+    parentElement = event.target.parentNode.parentNode;
+  }else{
+    parentElement = event.target.parentNode.parentNode.parentNode;
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// access the parent of tasktitle (the tasktitle is the child node of card)
+//  card body 1 and card-title 2 so two childnode
+let taskTitle = parentElement.childNodes[5].childNodes[1];
+let taskDescription = parentElement.childNodes[5].childNodes[3];
+let tasktype = parentElement.childNodes[5].childNodes[5];
+let submitButton = parentElement.childNodes[7].childNodes[1];
+// setAttributes
+taskTitle.setAttribute("contenteditable" , "true");
+taskDescription.setAttribute("contenteditable" , "true");
+tasktype.setAttribute("contenteditable" , "true");
+// we are going to change to button only so don't use setAttribute
+submitButton.innerHTML = "save changes";
+// innerHTML means the text of the button  (open task)
+}; 
