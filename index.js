@@ -17,7 +17,7 @@ let globalStore=[];
       <a href="#" class="btn btn-primary">${taskData.taskType}</a>
      </div>
      <div class="card-footer ">
-      <button type="button" class="btn btn-outline-primary float-end">open task</button>
+      <button type="button" class="btn btn-outline-primary float-end"  id=${taskData.id}>open task</button>
     </div>
     `;
   
@@ -71,7 +71,9 @@ let globalStore=[];
     };
 
 
-
+const updatelocalStorage =() =>{
+  localStorage.setItem("tasky", JSON.stringify({cards:globalStore}));
+}
 
 
 
@@ -139,7 +141,7 @@ const tagName = event.target.tagName;
 
 globalStore = globalStore.filter((cardObject) => cardObject.id !==targetID);
 
-localStorage.setItem("tasky", JSON.stringify({cards:globalStore}));
+
 
 //contact parent 
 
@@ -179,7 +181,49 @@ let submitButton = parentElement.childNodes[7].childNodes[1];
 taskTitle.setAttribute("contenteditable" , "true");
 taskDescription.setAttribute("contenteditable" , "true");
 tasktype.setAttribute("contenteditable" , "true");
+submitButton.setAttribute("onclick" , "saveEditChanges.apply(this,arguments)");
 // we are going to change to button only so don't use setAttribute
 submitButton.innerHTML = "save changes";
 // innerHTML means the text of the button  (open task)
 }; 
+
+const saveEditChanges = (event) => {
+  event = window.event;
+  const targetID = event.target.id;
+  const tagName = event.target.tagName;
+
+  let parentElement;
+  if(tagName === "BUTTON"){
+
+ 
+    parentElement = event.target.parentNode.parentNode;
+  }else{
+    parentElement = event.target.parentNode.parentNode.parentNode;
+  }
+
+let taskTitle = parentElement.childNodes[5].childNodes[1];
+let taskDescription = parentElement.childNodes[5].childNodes[3];
+let tasktype = parentElement.childNodes[5].childNodes[5];
+let submitButton = parentElement.childNodes[7].childNodes[1];
+
+const updatedData ={
+  taskTitle : taskTitle.innerHTML,
+  tasktype : tasktype.innerHTML,
+  taskDescription : taskDescription.innerHTML,
+};
+
+globalStore = globalStore.map((task) => {
+if(task.id === targetID){
+  return{
+    id: task.id,
+    imageUrl: task.url,
+    taskTitle:updatedData.taskTitle,
+    taskType: updatedData.tasktype,
+    taskDescription:updatedData.taskDescription,
+  };
+}
+// use return because if the id did not match it dont stored in global store we need that data so we are using return
+return task;  // important
+});
+updatelocalStorage();
+};
