@@ -226,4 +226,10 @@ if(task.id === targetID){
 return task;  // important
 });
 updatelocalStorage();
+
+taskTitle.setAttribute("contenteditable" , "false");
+taskDescription.setAttribute("contenteditable" , "false");
+tasktype.setAttribute("contenteditable" , "false");
+submitButton.removeAttribute("onclick")
+submitButton.innerHTML = "open task";
 };
